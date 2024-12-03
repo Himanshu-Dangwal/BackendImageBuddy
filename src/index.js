@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('../routes/authRoutes');
+const axios = require("axios")
 
 dotenv.config();
 
@@ -35,3 +36,13 @@ mongoose
 app.get("/", (req, res) => {
     res.send("This is Image Buddy Application");
 })
+
+setInterval(() => {
+    axios.get('https://backendimagebuddy.onrender.com/')
+        .then(response => {
+            console.log('Pinged backend to keep it alive.');
+        })
+        .catch(error => {
+            console.error('Error pinging backend:', error);
+        });
+}, 2 * 60 * 1000);
